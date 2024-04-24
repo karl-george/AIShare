@@ -7,8 +7,8 @@ export default function App() {
     <View className='items-center justify-center flex-1 bg-white'>
       <Text className='text-3xl font-pblack'>AIShare</Text>
       <StatusBar style='auto' />
-      <Link href='/profile' style={{ color: 'blue' }}>
-        Go to Profile
+      <Link href='/home' style={{ color: 'blue' }}>
+        Go to Home
       </Link>
     </View>
   );
