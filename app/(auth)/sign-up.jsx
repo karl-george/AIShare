@@ -5,13 +5,14 @@ import { Link } from 'expo-router';
 import { images } from '../../constants';
 import FormField from '../../components/FormField';
 import CustomButton from '../../components/CustomButton';
+import { createUser } from '../../lib/appwrite';
 
 const SignUp = () => {
   const [form, setForm] = useState({ username: '', email: '', password: '' });
   const [isSubmitting, setIsSubmitting] = useState(false);
 
-  const submit = (second) => {
-    third;
+  const submit = () => {
+    createUser();
   };
 
   return (
