@@ -1,7 +1,8 @@
 import { View, Text, FlatList, Image } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
-import { images } from '../../constants';
 import SearchInput from '../../components/SearchInput';
+import Trending from '../../components/Trending';
+import { images } from '../../constants';
 
 const Home = () => {
   return (
@@ -34,9 +35,12 @@ const Home = () => {
               <Text className='text-gray-100 text-lg font-pregular mb-3'>
                 Trending Videos
               </Text>
+              {/* ?? is saying if it doesnt exist make an empty array */}
+              <Trending posts={[{ id: 1 }, { id: 2 }, { id: 3 }] ?? []} />
             </View>
           </View>
         )}
+        ListEmptyComponent={() => <Text className='text-white'>Empty</Text>}
       />
     </SafeAreaView>
   );
