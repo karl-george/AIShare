@@ -6,8 +6,11 @@ import { images } from '../../constants';
 import FormField from '../../components/FormField';
 import CustomButton from '../../components/CustomButton';
 import { signIn } from '../../lib/appwrite';
+import { useGlobalContext } from '../../context/GlobalProvider';
 
 const SignIn = () => {
+  const { setUser, setIsLoggedIn } = useGlobalContext();
+
   const [form, setForm] = useState({ email: '', password: '' });
   const [isSubmitting, setIsSubmitting] = useState(false);
 
@@ -20,6 +23,10 @@ const SignIn = () => {
     try {
       await signIn(form.email, form.password);
       // Set to global state later
+      const result = await getCurrentUser();
+      setUser(result);
+      setIsLoggedIn(true);
+      Alert.alert('User signed in successfully');
 
       router.replace('/home');
     } catch (error) {
