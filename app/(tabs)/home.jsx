@@ -14,6 +14,7 @@ import SearchInput from '../../components/SearchInput';
 import Trending from '../../components/Trending';
 import EmptyState from '../../components/EmptyState';
 import { images } from '../../constants';
+import VideoCard from '../../components/VideoCard';
 
 const Home = () => {
   const [refreshing, setRefreshing] = useState(false);
@@ -27,13 +28,11 @@ const Home = () => {
   };
 
   return (
-    <SafeAreaView className='bg-primary'>
+    <SafeAreaView className='bg-primary h-full'>
       <FlatList
-        data={[{ id: 1 }, { id: 2 }, { id: 3 }]}
+        data={posts}
         keyExtractor={(item) => item.$id}
-        renderItem={({ item }) => (
-          <Text className='text-3xl text-white'>{item.id}</Text>
-        )}
+        renderItem={({ item }) => <VideoCard video={item} />}
         ListHeaderComponent={() => (
           <View className='my-6 px-4 space-y-6'>
             <View className='justify-between items-start flex-row mb-6'>
