@@ -1,14 +1,13 @@
+import { router, usePathname } from 'expo-router';
 import React, { useState } from 'react';
 import {
-  View,
-  Text,
+  Alert,
+  Image,
   TextInput,
   TouchableOpacity,
-  Image,
-  Alert,
+  View
 } from 'react-native';
 import { icons } from '../constants';
-import { router, usePathname } from 'expo-router';
 
 const SearchInput = ({ initialQuery }) => {
   const pathname = usePathname();

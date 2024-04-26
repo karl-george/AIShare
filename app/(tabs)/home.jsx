@@ -1,20 +1,19 @@
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 import {
-  View,
-  Text,
   FlatList,
   Image,
   RefreshControl,
-  Alert,
+  Text,
+  View
 } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
-import { getAllPosts, getLatestPosts } from '../../lib/appwrite';
-import useAppwrite from '../../lib/useAppwrite';
+import EmptyState from '../../components/EmptyState';
 import SearchInput from '../../components/SearchInput';
 import Trending from '../../components/Trending';
-import EmptyState from '../../components/EmptyState';
-import { images } from '../../constants';
 import VideoCard from '../../components/VideoCard';
+import { images } from '../../constants';
+import { getAllPosts, getLatestPosts } from '../../lib/appwrite';
+import useAppwrite from '../../lib/useAppwrite';
 
 const Home = () => {
   const [refreshing, setRefreshing] = useState(false);
