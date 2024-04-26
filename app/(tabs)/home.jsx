@@ -1,6 +1,14 @@
-import { useState } from 'react';
-import { View, Text, FlatList, Image, RefreshControl } from 'react-native';
+import { useEffect, useState } from 'react';
+import {
+  View,
+  Text,
+  FlatList,
+  Image,
+  RefreshControl,
+  Alert,
+} from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
+import { getAllPosts } from '../../lib/appwrite';
 import SearchInput from '../../components/SearchInput';
 import Trending from '../../components/Trending';
 import EmptyState from '../../components/EmptyState';
@@ -8,6 +16,23 @@ import { images } from '../../constants';
 
 const Home = () => {
   const [refreshing, setRefreshing] = useState(false);
+  const [data, setData] = useState([]);
+  const [isLoading, setIsLoading] = useState(true);
+
+  useEffect(() => {
+    const fetchData = async () => {
+      setIsLoading(true);
+      try {
+        const reponse = await getAllPosts();
+        setData(reponse);
+      } catch (error) {
+        Alert.alert('Error', error.message);
+      } finally {
+        setIsLoading(false);
+      }
+    };
+    fetchData();
+  }, []);
 
   const onRefresh = async () => {
     setRefreshing(true);
