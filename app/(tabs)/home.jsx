@@ -9,6 +9,7 @@ import {
 } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { getAllPosts } from '../../lib/appwrite';
+import useAppwrite from '../../lib/useAppwrite';
 import SearchInput from '../../components/SearchInput';
 import Trending from '../../components/Trending';
 import EmptyState from '../../components/EmptyState';
@@ -16,27 +17,12 @@ import { images } from '../../constants';
 
 const Home = () => {
   const [refreshing, setRefreshing] = useState(false);
-  const [data, setData] = useState([]);
-  const [isLoading, setIsLoading] = useState(true);
-
-  useEffect(() => {
-    const fetchData = async () => {
-      setIsLoading(true);
-      try {
-        const reponse = await getAllPosts();
-        setData(reponse);
-      } catch (error) {
-        Alert.alert('Error', error.message);
-      } finally {
-        setIsLoading(false);
-      }
-    };
-    fetchData();
-  }, []);
+  const { data: posts, refetch } = useAppwrite(getAllPosts);
 
   const onRefresh = async () => {
     setRefreshing(true);
     // Refresh videos to see if any new ones have been added
+    await refetch();
     setRefreshing(false);
   };
 
