@@ -3,6 +3,7 @@ import { SafeAreaView } from 'react-native-safe-area-context';
 import SearchInput from '../../components/SearchInput';
 import Trending from '../../components/Trending';
 import { images } from '../../constants';
+import EmptyState from '../../components/EmptyState';
 
 const Home = () => {
   return (
@@ -40,7 +41,12 @@ const Home = () => {
             </View>
           </View>
         )}
-        ListEmptyComponent={() => <Text className='text-white'>Empty</Text>}
+        ListEmptyComponent={() => (
+          <EmptyState
+            title='No videos found'
+            subtitle='Be the first one to upload a video'
+          />
+        )}
       />
     </SafeAreaView>
   );
