@@ -1,11 +1,5 @@
 import { useState } from 'react';
-import {
-  FlatList,
-  Image,
-  RefreshControl,
-  Text,
-  View
-} from 'react-native';
+import { FlatList, Image, RefreshControl, Text, View } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import EmptyState from '../../components/EmptyState';
 import SearchInput from '../../components/SearchInput';
@@ -13,12 +7,14 @@ import Trending from '../../components/Trending';
 import VideoCard from '../../components/VideoCard';
 import { images } from '../../constants';
 import { getAllPosts, getLatestPosts } from '../../lib/appwrite';
+import { useGlobalContext } from '../../context/GlobalProvider';
 import useAppwrite from '../../lib/useAppwrite';
 
 const Home = () => {
   const [refreshing, setRefreshing] = useState(false);
   const { data: posts, refetch } = useAppwrite(getAllPosts);
   const { data: latestPosts } = useAppwrite(getLatestPosts);
+  const { user, setUser, setIsLoggedIn } = useGlobalContext();
 
   const onRefresh = async () => {
     setRefreshing(true);
@@ -28,31 +24,33 @@ const Home = () => {
   };
 
   return (
-    <SafeAreaView className='bg-primary h-full'>
+    <SafeAreaView className='h-full bg-primary'>
       <FlatList
         data={posts}
         keyExtractor={(item) => item.$id}
         renderItem={({ item }) => <VideoCard video={item} />}
         ListHeaderComponent={() => (
-          <View className='my-6 px-4 space-y-6'>
-            <View className='justify-between items-start flex-row mb-6'>
+          <View className='px-4 my-6 space-y-6'>
+            <View className='flex-row items-start justify-between mb-6'>
               <View>
-                <Text className='font-pmedium text-sm text-gray-100'>
-                  Welcome Back
+                <Text className='text-sm text-gray-100 font-pmedium'>
+                  Welcome Back,
                 </Text>
-                <Text className='text-2xl font-psemibold text-white'>KG</Text>
+                <Text className='text-2xl text-white font-psemibold'>
+                  {user?.username}
+                </Text>
               </View>
               <View className='mt-1.5'>
                 <Image
                   source={images.logoSmall}
-                  className='w-9 h-10'
+                  className='h-10 w-9'
                   resizeMode='contain'
                 />
               </View>
             </View>
             <SearchInput />
-            <View className='w-full flex-1 pt-5 pb-8'>
-              <Text className='text-gray-100 text-lg font-pregular mb-3'>
+            <View className='flex-1 w-full pt-5 pb-8'>
+              <Text className='mb-3 text-lg text-gray-100 font-pregular'>
                 Trending Videos
               </Text>
               {/* ?? is saying if it doesnt exist make an empty array */}
